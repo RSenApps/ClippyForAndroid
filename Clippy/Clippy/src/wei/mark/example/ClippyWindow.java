@@ -266,7 +266,7 @@ public class ClippyWindow extends StandOutWindow {
 	// the window will be centered
 	@Override
 	public StandOutLayoutParams getParams(int id, Window window) {
-		return new StandOutLayoutParams(id, StandOutLayoutParams.WRAP_CONTENT, StandOutLayoutParams.WRAP_CONTENT, StandOutLayoutParams.RIGHT, StandOutLayoutParams.TOP);
+		return new StandOutLayoutParams(id, StandOutLayoutParams.WRAP_CONTENT, StandOutLayoutParams.WRAP_CONTENT, StandOutLayoutParams.RIGHT, pxFromDp(50));
 	}
 
 	// move the window by dragging the view
