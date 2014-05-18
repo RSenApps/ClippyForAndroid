@@ -193,14 +193,15 @@ public class ClippyWindow extends StandOutWindow {
 
 			@Override
 			public void run() {
-				if (lastPriority < 2)
+				if (lastPriority < 1)
 				{
 					messageTitle.setText("Hey!");
 					messageText.setText("How can I help you?");
+					textField.setVisibility(View.VISIBLE);
+					showButtons(false);
+					showBubble(false, true);
+					lastPriority = 0;
 				}
-				lastPriority = 0;
-				textField.setVisibility(View.VISIBLE);
-				showBubble(false, true);
 			}
 
 		}, delay);
@@ -419,20 +420,19 @@ public class ClippyWindow extends StandOutWindow {
 					public void onClick(View arg0) {
 						showBubble(true, false);
 
-						animate(ClippyAnimation.CLIPPY_ANIMATIONS.SEARCH, true, true);
+						animate(ClippyAnimation.CLIPPY_ANIMATIONS.CHECK, true, true);
 
 						try {
-							String url = "http://www.hotmail.com";
-							Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-							browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							startActivity(browserIntent);
+							Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.outlook.Z7");
+							launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							startActivity(launchIntent);
 						}
 						catch (Exception e)
 						{}
 					}
 				});
 				messageTitle.setText("Scroogled");
-				messageText.setText("Did you know that Google reads your gmail? Would you like me to open up the more 'modern' hotmail?");
+				messageText.setText("Did you know that Google reads your gmail? Would you like me to open Outlook.com?");
 				showBubble(true, true);
 				animate(CLIPPY_ANIMATIONS.WRITING, true, true);
 			}
@@ -646,6 +646,7 @@ public class ClippyWindow extends StandOutWindow {
 			}
 			if (Math.abs(deltaX) < pxFromDp(5) && Math.abs(deltaY) < pxFromDp(5)) {
 				Log.d("Tap", "Tapped");
+				lastPriority = 0;
 				showHelp(0);
 			}
 			window.touchInfo.moving = false;
